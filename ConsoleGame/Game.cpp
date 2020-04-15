@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() : isTicking{ false }, ticksPerSecond{ 0 }, ticksSinceLastSecond{ 0 }, lastTickTimePoint{ std::chrono::high_resolution_clock::now() }
+Game::Game() : isTicking{ false }, ticksPerSecond{ 0 }, ticksSinceLastSecond{ 0 }, lastTickTimePoint{ std::chrono::high_resolution_clock::now() }, consoleBufferInfo{ NULL }, consoleHandle{ GetStdHandle(STD_OUTPUT_HANDLE)  }
 {
 	
 
@@ -77,15 +77,16 @@ void Game::tick(bool loop)		// main game loop
 		// clear the garbage from the screen that might have been there previously
 		system("CLS");
 
-		CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
-		SMALL_RECT srctWindow;
+		// get the console buffer info (size of the console window, cursor location, cell attributes like color, etc
+		GetConsoleScreenBufferInfo(consoleHandle, &consoleBufferInfo);
 
-		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbiInfo);
+		// grab a copy of the size of the buffer (current x value of right side of console window and y value of bottom side of console window)
+		COORD bufferSize{ consoleBufferInfo.dwSize };
 
-		srctWindow = csbiInfo.srWindow;
 
 
-		
+
+		// print the tps
 		std::cout << getTicksPerSecond() << '\n';
 	} while (getIsTicking());
 }

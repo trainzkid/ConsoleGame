@@ -18,6 +18,8 @@ private:
 	float ticksPerSecond;
 	int ticksSinceLastSecond;
 	std::chrono::high_resolution_clock::time_point lastTickTimePoint;
+	CONSOLE_SCREEN_BUFFER_INFO consoleBufferInfo;
+	HANDLE consoleHandle;
 
 	// functions
 public:
