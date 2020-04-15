@@ -60,7 +60,7 @@ void Game::tick(bool loop)		// main game loop
 {
 	if (loop) setIsTicking(true, false);
 	do
-	{			// should I just make this function call itself instead of doing a do while loop? does it matter?
+	{
 
 		// calculate ticksPerSecond
 		setTicksSinceLastSecond(getTicksSinceLastSecond() + 1);
